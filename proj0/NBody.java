@@ -74,7 +74,7 @@ public class NBody {
         }
 
         StdOut.printf("%d\n", Planets.length);
-        StdOut.printf("%.2e\n", radius);
+        StdOut.printf("%.2e\n", R);
         for (int i = 0; i < Planets.length; i++) {
             StdOut.printf("%11.4e %11.4e %11.4e %11.4e %11.4e %12s\n",
                         Planets[i].xxPos, Planets[i].yyPos, Planets[i].xxVel,
