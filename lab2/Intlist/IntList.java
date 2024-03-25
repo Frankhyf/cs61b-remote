@@ -84,6 +84,9 @@ IntList {
     public static IntList dcatenate(IntList A, IntList B) {
         //TODO:  fill in method
         //核心：把指针一直移到A末尾即可
+        if(A == null){
+            return B;
+        }
         IntList ptr = A;
         while (ptr.rest != null){
             ptr = ptr.rest;
@@ -99,7 +102,10 @@ IntList {
     public static IntList catenate(IntList A, IntList B) {
         //TODO:  fill in method
         //核心：通过recursion new一个和A一模一样的链表
-        if (A.rest == null){
+        if (A == null){
+            return B;
+        }
+        else if (A.rest == null){
             return new IntList(A.first,B);
         }
 
