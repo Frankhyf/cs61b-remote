@@ -7,7 +7,8 @@ import java.util.Formatter;
  * @author P. N. Hilfinger, with some modifications by Josh Hug and melaniecebula
  *         [Do not modify this file.]
  */
-public class IntList {
+public class
+IntList {
     /**
      * First element of list.
      */
@@ -82,7 +83,13 @@ public class IntList {
 
     public static IntList dcatenate(IntList A, IntList B) {
         //TODO:  fill in method
-        return null;
+        //核心：把指针一直移到A末尾即可
+        IntList ptr = A;
+        while (ptr.rest != null){
+            ptr = ptr.rest;
+        }
+        ptr.rest = B;
+        return A;
     }
 
     /**
@@ -91,7 +98,12 @@ public class IntList {
      */
     public static IntList catenate(IntList A, IntList B) {
         //TODO:  fill in method
-        return null;
+        //核心：通过recursion new一个和A一模一样的链表
+        if (A.rest == null){
+            return new IntList(A.first,B);
+        }
+
+        return new IntList(A.first,catenate(A.rest,B));
     }
 
 
