@@ -1,7 +1,7 @@
 public class LinkedListDeque<T> {
 
 
-    public class Deque {
+    private class Deque {
         private Deque prev;
         private Deque next;
         private T item;
@@ -22,7 +22,7 @@ public class LinkedListDeque<T> {
         sentinel.prev = sentinel;
         size = 0;
     }
-    public LinkedListDeque(LinkedListDeque<T> other) {
+    public LinkedListDeque(LinkedListDeque other) {
         this.sentinel = new Deque(null, null, null);
         Deque ptr = other.sentinel.next;
         while (ptr != other.sentinel) {
@@ -86,11 +86,11 @@ public class LinkedListDeque<T> {
     }
     public T get(int index) {
         if (index + 1 > size || index < 0) {
-             return null;
+            return null;
         } else {
             Deque ptr = sentinel;
             while (index != 0) {
-                index --;
+                index--;//--should have no whitespace before
                 ptr = ptr.next;
             }
             return ptr.next.item;
