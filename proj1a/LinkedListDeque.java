@@ -6,7 +6,7 @@ public class LinkedListDeque<T> {
         private Deque next;
         private T item;
 
-        public Deque(T item,Deque p,Deque n){
+        public Deque(T item, Deque p, Deque n) {
             this.item = item;
             this.prev = p;
             this.next = n;
@@ -25,7 +25,7 @@ public class LinkedListDeque<T> {
     public LinkedListDeque(LinkedListDeque<T> other) {
         this.sentinel = new Deque(null, null, null);
         Deque ptr = other.sentinel.next;
-        while (ptr != other.sentinel){
+        while (ptr != other.sentinel) {
             this.addLast(ptr.item);
             ptr = ptr.next;
         }
@@ -37,7 +37,7 @@ public class LinkedListDeque<T> {
     }
     public void addLast(T item) {
         size += 1;
-        sentinel.prev= new Deque(item, sentinel.prev, sentinel);
+        sentinel.prev = new Deque(item, sentinel.prev, sentinel);
         sentinel.prev.prev.next = sentinel.prev;
     }
     public boolean isEmpty() {
@@ -51,21 +51,20 @@ public class LinkedListDeque<T> {
         return size;
     }
 
-    public void printDeque(){
-        if (this.isEmpty() == true) {
+    public void printDeque() {
+        if (this.isEmpty()) {
             System.out.println();
             System.out.println();
-        }
-        else {
+        } else {
             Deque ptr = sentinel.next;
-            while (ptr!=sentinel) {
-                System.out.print(ptr.item+" ");
-                ptr=ptr.next;
+            while (ptr != sentinel) {
+                System.out.print(ptr.item + " ");
+                ptr = ptr.next;
             }
             System.out.println();
         }
     }
-    public T removeFirst(){
+    public T removeFirst() {
         if (size == 0) {
             return null;
         }
@@ -76,7 +75,7 @@ public class LinkedListDeque<T> {
         return item;
     }
     public T removeLast() {
-        if(size == 0){
+        if (size == 0) {
             return null;
         }
         size -= 1;
@@ -86,17 +85,16 @@ public class LinkedListDeque<T> {
         return item;
     }
     public T get(int index) {
-         if (index+1>size || index <0) {
+        if (index + 1 > size || index < 0) {
              return null;
-         }
-         else {
-             Deque ptr = sentinel;
-             while(index !=0){
-                 index--;
-                 ptr = ptr.next;
-             }
-             return ptr.next.item;
-         }
+        } else {
+            Deque ptr = sentinel;
+            while (index != 0) {
+                index --;
+                ptr = ptr.next;
+            }
+            return ptr.next.item;
+        }
     }
     private T getRecursiveHelper(int index, Deque node) {
         if (index == 0) {
@@ -106,7 +104,7 @@ public class LinkedListDeque<T> {
     }
 
     public T getRecursive(int index) {
-        if(index >= size || index < 0) {
+        if (index >= size || index < 0) {
             return null;
         }
         return getRecursiveHelper(index, sentinel.next);
