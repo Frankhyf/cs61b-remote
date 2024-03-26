@@ -22,14 +22,17 @@ public class LinkedListDeque<T> {
         sentinel.prev = sentinel;
         size = 0;
     }
-    public LinkedListDeque(LinkedListDeque other) {
+    public LinkedListDeque(LinkedListDeque<T> other) {
         this.sentinel = new Deque(null, null, null);
-        Deque ptr = other.sentinel.next;
-        while (ptr != other.sentinel) {
+        this.sentinel.next = this.sentinel;
+        this.sentinel.prev = this.sentinel;
+        this.size = 0;
+
+        for (Deque ptr = other.sentinel.next; ptr != other.sentinel; ptr = ptr.next) {
             this.addLast(ptr.item);
-            ptr = ptr.next;
         }
     }
+
     public void addFirst(T item) {
         size += 1;
         sentinel.next = new Deque(item, sentinel, sentinel.next);
@@ -90,7 +93,7 @@ public class LinkedListDeque<T> {
         } else {
             Deque ptr = sentinel;
             while (index != 0) {
-                index--;//--should have no whitespace before
+                index--; //--should have no whitespace before
                 ptr = ptr.next;
             }
             return ptr.next.item;
