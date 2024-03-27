@@ -14,7 +14,7 @@ public class LinkedListDeque<T> {
     }
 
     private Deque sentinel;
-    private int size = 0;
+    private int size ;
 
     public LinkedListDeque() {
         sentinel = new Deque(null, null, null);
