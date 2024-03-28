@@ -20,12 +20,14 @@ public class ArrayDeque<T> {
             items = a;
         } else {
             System.arraycopy(items, front, a, 0, size);
+            front = 0;
+            rear = size -1;
             items = a;
         }
     }
 
 
-    public  ArrayDeque(ArrayDeque other) {
+    public  ArrayDeque(ArrayDeque<T> other) {
         this.items = (T []) new Object[other.items.length];
         System.arraycopy(other.items, 0, this.items, 0, other.size);
         this.size = other.size;
@@ -34,9 +36,9 @@ public class ArrayDeque<T> {
     }
 
     public void addFirst(T item) {
-        if(isEmpty()) {
+        if (isEmpty()) {
             items[front] = item;
-        }else {
+        } else {
             if (size == items.length) {
                 this.expandlength(size * 2);
             }
@@ -84,18 +86,18 @@ public class ArrayDeque<T> {
             System.out.println();
             System.out.println();
         } else if (front < rear) {
-            for(int i = front; i<=rear; i++){
+            for (int i = front; i <= rear; i++) {
                 System.out.print(items[i] + " ");
             }
             System.out.println();
-            } else {
-                for(int i = front; i<=items.length-1; i++){
-                    System.out.print(items[i] + " ");
-                }
-                for(int i = 0; i<=rear; i++){
-                    System.out.print(items[i] + " ");
-                }
-               System.out.println();
+        } else {
+            for (int i = front; i<=items.length-1; i++) {
+                System.out.print(items[i] + " ");
+            }
+            for (int i = 0; i <= rear; i++) {
+                System.out.print(items[i] + " ");
+            }
+           System.out.println();
         }
     }
 
@@ -103,11 +105,11 @@ public class ArrayDeque<T> {
         if (this.isEmpty()) {
             return null;
         }
-        if (items.length/size >=4){
-            this.expandlength(items.length/2);
+        if (items.length / size >= 4 && items.length >= 16) {
+            this.expandlength(items.length / 2);
         }
         T res = items[front];
-        if (front == items.length-1){
+        if (front == items.length - 1) {
             front = 0;
         } else {
             front += 1;
@@ -120,8 +122,8 @@ public class ArrayDeque<T> {
         if (this.isEmpty()) {
             return null;
         }
-        if (items.length/size >=4){
-            this.expandlength(items.length/2);
+        if (items.length / size >= 4 && items.length >= 16){
+            this.expandlength(items.length / 2);
         }
         T res = items[rear];
         if (rear == 0){
@@ -136,7 +138,7 @@ public class ArrayDeque<T> {
         if (index >= size || index < 0){
             return null;
         } else {
-            return items[(front+index)%items.length];
+            return items[(front+index) % items.length];
         }
     }
 }
