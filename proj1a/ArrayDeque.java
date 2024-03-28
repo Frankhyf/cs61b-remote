@@ -27,9 +27,9 @@ public class ArrayDeque<T> {
     }
 
 
-    public  ArrayDeque(ArrayDeque<T> other) {
+    public  ArrayDeque(ArrayDeque other) {
         this.items = (T []) new Object[other.items.length];
-        System.arraycopy(other.items, 0, this.items, 0, other.size);
+        System.arraycopy(other.items, 0, this.items, 0, other.items.length);
         this.size = other.size;
         this.front = other.front;
         this.rear = other.rear;
@@ -85,20 +85,11 @@ public class ArrayDeque<T> {
         if (this.isEmpty()) {
             System.out.println();
             System.out.println();
-        } else if (front < rear) {
-            for (int i = front; i <= rear; i++) {
-                System.out.print(items[i] + " ");
-            }
-            System.out.println();
-        } else {
-            for (int i = front; i<=items.length-1; i++) {
-                System.out.print(items[i] + " ");
-            }
-            for (int i = 0; i <= rear; i++) {
-                System.out.print(items[i] + " ");
-            }
-           System.out.println();
         }
+        for (int i = front; i <= items.length+rear; i++) {
+            System.out.print(items[i % items.length] + " ");
+        }
+        System.out.println();
     }
 
     public T removeFirst() {

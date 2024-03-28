@@ -18,18 +18,14 @@ public class LinkedListDeque<T> {
 
     public LinkedListDeque() {
         sentinel = new Deque(null, null, null);
-        sentinel.next = sentinel;
-        sentinel.prev = sentinel;
         size = 0;
     }
-    public LinkedListDeque(LinkedListDeque<T> other) {
+    public LinkedListDeque(LinkedListDeque other) {
         this.sentinel = new Deque(null, null, null);
-        this.sentinel.next = this.sentinel;
-        this.sentinel.prev = this.sentinel;
         this.size = 0;
 
         for (Deque ptr = other.sentinel.next; ptr != other.sentinel; ptr = ptr.next) {
-            this.addLast(ptr.item);
+            addLast((T) (ptr.item));
         }
     }
 
