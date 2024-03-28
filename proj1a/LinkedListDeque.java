@@ -17,14 +17,18 @@ public class LinkedListDeque<T> {
     private int size;
 
     public LinkedListDeque() {
-        sentinel = new Deque(null, null, null);
-        size = 0;
+        this.sentinel = new Deque(null, null, null);
+        sentinel.next = sentinel;
+        sentinel.prev = sentinel;
+        this.size = 0;
     }
     public LinkedListDeque(LinkedListDeque other) {
         this.sentinel = new Deque(null, null, null);
+        sentinel.next = sentinel;
+        sentinel.prev = sentinel;
         this.size = 0;
 
-        for ( int i = 0; i <= size - 1; i++){
+        for (int i = 0; i < other.size() ; i++) {
             addLast ((T)(other.get(i)));
         }
     }
