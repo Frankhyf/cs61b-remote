@@ -24,8 +24,8 @@ public class LinkedListDeque<T> {
         this.sentinel = new Deque(null, null, null);
         this.size = 0;
 
-        for (Deque ptr = other.sentinel.next; ptr != other.sentinel; ptr = ptr.next) {
-            addLast((T) (ptr.item));
+        for ( int i = 0; i <= size - 1; i++){
+            addLast ((T)(other.get(i)));
         }
     }
 
