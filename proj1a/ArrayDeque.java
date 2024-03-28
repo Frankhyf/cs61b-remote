@@ -34,28 +34,36 @@ public class ArrayDeque<T> {
     }
 
     public void addFirst(T item) {
-        if (size == items.length){
-            this.expandlength(size*2);
-        }
-        if (front == 0){
-            front = items.length-1;
+        if(isEmpty()) {
             items[front] = item;
-        } else {
-            front -= 1;
-            items[front] = item;
+        }else {
+            if (size == items.length) {
+                this.expandlength(size * 2);
+            }
+            if (front == 0) {
+                front = items.length - 1;
+                items[front] = item;
+            } else {
+                front -= 1;
+                items[front] = item;
+            }
         }
         size += 1;
     }
     public void addLast(T item) {
-        if (size == items.length){
-            this.expandlength(size*2);
-        }
-        if (rear == items.length-1){
-            rear = 0;
-            items[rear] = item;
+        if (isEmpty()) {
+            items[front] = item;
         } else {
-            rear += 1;
-            items[rear] = item;
+            if (size == items.length) {
+                this.expandlength(size * 2);
+            }
+            if (rear == items.length - 1) {
+                rear = 0;
+                items[rear] = item;
+            } else {
+                rear += 1;
+                items[rear] = item;
+            }
         }
         size += 1;
     }
@@ -99,7 +107,7 @@ public class ArrayDeque<T> {
             this.expandlength(items.length/2);
         }
         T res = items[front];
-        if (front == items.length){
+        if (front == items.length-1){
             front = 0;
         } else {
             front += 1;
