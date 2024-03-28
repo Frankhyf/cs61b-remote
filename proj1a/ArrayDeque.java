@@ -25,7 +25,13 @@ public class ArrayDeque<T> {
     }
 
 
-
+    public  ArrayDeque(ArrayDeque other) {
+        this.items = (T []) new Object[other.items.length];
+        System.arraycopy(other.items, 0, this.items, 0, other.size);
+        this.size = other.size;
+        this.front = other.front;
+        this.rear = other.rear;
+    }
 
     public void addFirst(T item) {
         if(isEmpty()) {

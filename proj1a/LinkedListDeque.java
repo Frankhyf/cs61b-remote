@@ -16,8 +16,13 @@ public class LinkedListDeque<T> {
     private Deque sentinel;
     private int size ;
 
-
-    public LinkedListDeque(LinkedListDeque<T> other) {
+    public LinkedListDeque() {
+        sentinel = new Deque(null, null, null);
+        sentinel.next = sentinel;
+        sentinel.prev = sentinel;
+        size = 0;
+    }
+    public LinkedListDeque(LinkedListDeque other) {
         this.sentinel = new Deque(null, null, null);
         this.sentinel.next = this.sentinel;
         this.sentinel.prev = this.sentinel;
