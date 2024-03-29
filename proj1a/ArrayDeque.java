@@ -71,16 +71,13 @@ public class ArrayDeque<T> {
         size += 1;
     }
 
-        public boolean isEmpty() {
-            if (size == 0) {
-                return true;
-            }
-            return false;
-        }
+    public boolean isEmpty() {
+        return size == 0;
+    }
 
-        public int size() {
-            return size;
-        }
+    public int size() {
+        return size;
+    }
 
     public void printDeque() {
         if (this.isEmpty()) {
@@ -102,7 +99,7 @@ public class ArrayDeque<T> {
         }
         T res = items[front];
         if (size == 1) {
-            //don't need to do anything in this case;
+            ;//don't need to do anything in this case
         } else if (front == items.length - 1) {
             front = 0;
         } else {
@@ -121,7 +118,7 @@ public class ArrayDeque<T> {
         }
         T res = items[rear];
         if (size == 1){
-            //don't need to do anything in this case;
+            ;//don't need to do anything in this case
         } else if (rear == 0) {
             rear = items.length - 1;
         } else {
