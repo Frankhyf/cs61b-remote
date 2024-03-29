@@ -100,6 +100,7 @@ public class ArrayDeque<T> {
         T res = items[front];
         items[front] = null; // collect the garbage
         if (size == 1) {
+            size -= 1;
             return res;
         } else if (front == items.length - 1) {
             front = 0;
@@ -120,6 +121,7 @@ public class ArrayDeque<T> {
         T res = items[rear];
         items[rear] = null; // collect the garbage
         if (size == 1) {
+            size -= 1;
             return res;
         } else if (rear == 0) {
             rear = items.length - 1;
