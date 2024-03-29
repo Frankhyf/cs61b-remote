@@ -98,8 +98,9 @@ public class ArrayDeque<T> {
             this.expandlength(items.length / 2);
         }
         T res = items[front];
+        items[front] = null; // collect the garbage
         if (size == 1) {
-            ;//don't need to do anything in this case
+            return res;
         } else if (front == items.length - 1) {
             front = 0;
         } else {
@@ -113,12 +114,13 @@ public class ArrayDeque<T> {
         if (this.isEmpty()) {
             return null;
         }
-        if (items.length / size >= 4 && items.length >= 16){
+        if (items.length / size >= 4 && items.length >= 16) {
             this.expandlength(items.length / 2);
         }
         T res = items[rear];
-        if (size == 1){
-            ;//don't need to do anything in this case
+        items[rear] = null; // collect the garbage
+        if (size == 1) {
+            return res;
         } else if (rear == 0) {
             rear = items.length - 1;
         } else {
