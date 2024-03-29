@@ -100,7 +100,9 @@ public class ArrayDeque<T> {
             this.expandlength(items.length / 2);
         }
         T res = items[front];
-        if (front == items.length - 1) {
+        if (size == 1) {
+
+        } else if (front == items.length - 1) {
             front = 0;
         } else {
             front += 1;
@@ -117,7 +119,9 @@ public class ArrayDeque<T> {
             this.expandlength(items.length / 2);
         }
         T res = items[rear];
-        if (rear == 0){
+        if (size == 1){
+
+        } else if (rear == 0){
             rear = items.length-1;
         } else {
             rear -= 1;

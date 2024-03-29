@@ -88,17 +88,18 @@ public class LinkedListDeque<T> {
         return item;
     }
     public T get(int index) {
-        if (index + 1 > size || index < 0) {
+        if (index >= size || index < 0) {
             return null;
         } else {
-            Deque ptr = sentinel;
-            while (index != 0) {
-                index--; //--should have no whitespace before
+            Deque ptr = sentinel.next;
+            while (index > 0) {
                 ptr = ptr.next;
+                index--;
             }
-            return ptr.next.item;
+            return ptr.item;
         }
     }
+
     private T getRecursiveHelper(int index, Deque node) {
         if (index == 0) {
             return node.item;
