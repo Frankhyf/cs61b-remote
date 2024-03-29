@@ -21,13 +21,20 @@ public class ArrayDeque<T> {
         } else {
             System.arraycopy(items, front, a, 0, size);
             front = 0;
-            rear = size -1;
+            rear = size - 1;
             items = a;
         }
     }
 
-
-
+/*
+    public  ArrayDeque(ArrayDeque other) {
+        this.items = (T []) new Object[other.items.length];
+        System.arraycopy(other.items, 0, this.items, 0, other.items.length);
+        this.size = other.size;
+        this.front = other.front;
+        this.rear = other.rear;
+    }
+ */
 
     public void addFirst(T item) {
         if (isEmpty()) {
@@ -64,23 +71,23 @@ public class ArrayDeque<T> {
         size += 1;
     }
 
-    public boolean isEmpty() {
-        if (size == 0) {
-            return true;
+        public boolean isEmpty() {
+            if (size == 0) {
+                return true;
+            }
+            return false;
         }
-        return false;
-    }
 
-    public int size() {
-        return size;
-    }
+        public int size() {
+            return size;
+        }
 
     public void printDeque() {
         if (this.isEmpty()) {
             System.out.println();
             System.out.println();
         }
-        for (int i = front; i <= items.length+rear; i++) {
+        for (int i = front; i <= items.length + rear; i++) {
             System.out.print(items[i % items.length] + " ");
         }
         System.out.println();
@@ -95,7 +102,7 @@ public class ArrayDeque<T> {
         }
         T res = items[front];
         if (size == 1) {
-
+            //don't need to do anything in this case;
         } else if (front == items.length - 1) {
             front = 0;
         } else {
@@ -114,9 +121,9 @@ public class ArrayDeque<T> {
         }
         T res = items[rear];
         if (size == 1){
-
-        } else if (rear == 0){
-            rear = items.length-1;
+            //don't need to do anything in this case;
+        } else if (rear == 0) {
+            rear = items.length - 1;
         } else {
             rear -= 1;
         }
@@ -124,10 +131,10 @@ public class ArrayDeque<T> {
         return res;
     }
     public T get(int index) {
-        if (index >= size || index < 0){
+        if (index >= size || index < 0) {
             return null;
         } else {
-            return items[(front+index) % items.length];
+            return items[(front + index) % items.length];
         }
     }
 }
