@@ -8,15 +8,15 @@ import java.util.Formatter;
  *         [Do not modify this file.]
  */
 public class
-IntList {
+    IntList {
     /**
      * First element of list.
      */
-    public int first;
+    private int first;
     /**
      * Remaining elements of list.
      */
-    public IntList rest;
+    private IntList rest;
 
     /**
      * A List with first FIRST0 and rest REST0.
@@ -30,7 +30,7 @@ IntList {
      * A List with null rest, and first = 0.
      */
     public IntList() {
-    /* NOTE: public IntList () { }  would also work. */
+        /* NOTE: public IntList () { }  would also work. */
         this(0, null);
     }
 
@@ -82,13 +82,12 @@ IntList {
      */
 
     public static IntList dcatenate(IntList A, IntList B) {
-        //TODO:  fill in method
         //核心：把指针一直移到A末尾即可
-        if(A == null){
+        if (A == null) {
             return B;
         }
         IntList ptr = A;
-        while (ptr.rest != null){
+        while (ptr.rest != null) {
             ptr = ptr.rest;
         }
         ptr.rest = B;
@@ -100,16 +99,14 @@ IntList {
      * * elements of B.  May NOT modify items of A.  Use 'new'.
      */
     public static IntList catenate(IntList A, IntList B) {
-        //TODO:  fill in method
         //核心：通过recursion new一个和A一模一样的链表
-        if (A == null){
+        if (A == null) {
             return B;
-        }
-        else if (A.rest == null){
-            return new IntList(A.first,B);
+        } else if (A.rest == null) {
+            return new IntList(A.first, B);
         }
 
-        return new IntList(A.first,catenate(A.rest,B));
+        return new IntList(A.first, catenate(A.rest, B));
     }
 
 
@@ -117,12 +114,18 @@ IntList {
      * reverse a list
      */
     public static IntList reverse(IntList A) {
-        int[] arr = new int[100];
+        if (A == null) {
+            return null;
+        }
         int length = 0;
-        IntList ptr = A;
-        while (ptr != null) {
-            arr[length] = ptr.first;
+        for (IntList ptr = A; ptr != null; ptr = ptr.rest) {
             length += 1;
+        }
+        int[] arr = new int[length]; // 使用动态大小而不是魔术数字
+
+        IntList ptr = A;
+        for (int i = 0; i < length; i++) {
+            arr[i] = ptr.first;
             ptr = ptr.rest;
         }
         ptr = A;
@@ -132,6 +135,7 @@ IntList {
         }
         return A;
     }
+
 
 
 
