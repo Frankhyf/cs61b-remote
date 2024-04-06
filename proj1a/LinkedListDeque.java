@@ -1,5 +1,3 @@
-import java.util.Deque;
-
 public class LinkedListDeque<T> {
 
 
