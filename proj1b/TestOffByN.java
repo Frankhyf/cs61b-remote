@@ -23,4 +23,5 @@ public class TestOffByN {
         assertTrue(offBy5.equalChars('&', '+'));  // ASCII值相差5，应该返回true
         assertFalse(offBy5.equalChars('&', '%'));  // ASCII值不相差5，应该返回false
     }
+
 }
