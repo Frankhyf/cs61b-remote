@@ -1,3 +1,5 @@
+import java.util.Deque;
+
 public class LinkedListDeque<T> {
 
 
@@ -40,18 +42,22 @@ public class LinkedListDeque<T> {
         sentinel.next = new Deque(item, sentinel, sentinel.next);
         sentinel.next.next.prev = sentinel.next;
     }
+
     public void addLast(T item) {
         size += 1;
         sentinel.prev = new Deque(item, sentinel.prev, sentinel);
         sentinel.prev.prev.next = sentinel.prev;
     }
+
     public boolean isEmpty() {
         return size == 0;
     }
 
+
     public int size() {
         return size;
     }
+
 
     public void printDeque() {
         if (this.isEmpty()) {
@@ -66,6 +72,7 @@ public class LinkedListDeque<T> {
             System.out.println();
         }
     }
+
     public T removeFirst() {
         if (size == 0) {
             return null;
@@ -76,6 +83,7 @@ public class LinkedListDeque<T> {
         sentinel.next.prev = sentinel;
         return item;
     }
+
     public T removeLast() {
         if (size == 0) {
             return null;
@@ -86,6 +94,7 @@ public class LinkedListDeque<T> {
         sentinel.prev.next = sentinel;
         return item;
     }
+
     public T get(int index) {
         if (index >= size || index < 0) {
             return null;

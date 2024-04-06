@@ -1,3 +1,5 @@
+import java.util.Deque;
+
 public class ArrayDeque<T> {
     private T[] items;
     private int size;
@@ -53,6 +55,7 @@ public class ArrayDeque<T> {
         }
         size += 1;
     }
+
     public void addLast(T item) {
         if (isEmpty()) {
             items[front] = item;
@@ -71,13 +74,16 @@ public class ArrayDeque<T> {
         size += 1;
     }
 
+
     public boolean isEmpty() {
         return size == 0;
     }
 
+
     public int size() {
         return size;
     }
+
 
     public void printDeque() {
         if (this.isEmpty()) {
@@ -89,6 +95,7 @@ public class ArrayDeque<T> {
         }
         System.out.println();
     }
+
 
     public T removeFirst() {
         if (this.isEmpty()) {
@@ -110,6 +117,7 @@ public class ArrayDeque<T> {
         size -= 1;
         return res;
     }
+
 
     public T removeLast() {
         if (this.isEmpty()) {
