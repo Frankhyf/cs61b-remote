@@ -7,7 +7,7 @@ public class Game {
     TERenderer ter = new TERenderer();
     /* Feel free to change the width and height. */
     public static final int WIDTH = 80;
-    public static final int HEIGHT = 30;
+    public static final int HEIGHT = 50;
 
     /**
      * Method used for playing a fresh game. The game should start from the main menu.
@@ -31,8 +31,22 @@ public class Game {
         // TODO: Fill out this method to run the game using the input passed in,
         // and return a 2D tile representation of the world that would have been
         // drawn if the same inputs had been given to playWithKeyboard().
+        int startIndex = input.indexOf('n') + 1; // 找到 'n' 后的位置作为起始索引
+        int endIndex = startIndex; // 初始化结束索引
 
-        TETile[][] finalWorldFrame = null;
+        // 从 startIndex 开始，找到第一个非数字字符的位置，这就是结束索引
+        while (endIndex < input.length() && Character.isDigit(input.charAt(endIndex))) {
+            endIndex++;
+        }
+
+        // 截取从 startIndex 到 endIndex 的子字符串，这部分字符串就是种子
+        String seedString = input.substring(startIndex, endIndex);
+
+        // 将字符串种子转换为长整型
+        long seed = Long.parseLong(seedString);
+        //使用种子生成世界
+        GenerateNewWorld G = new GenerateNewWorld(seed);
+        TETile[][] finalWorldFrame = G.GenerateAll();
         return finalWorldFrame;
     }
 }
