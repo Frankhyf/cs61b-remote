@@ -4,7 +4,6 @@ import byog.TileEngine.TERenderer;
 import byog.TileEngine.TETile;
 import edu.princeton.cs.introcs.StdDraw;
 import byog.TileEngine.Tileset;
-import jdk.nashorn.internal.ir.ContinueNode;
 
 import java.awt.*;
 import java.util.Random;
