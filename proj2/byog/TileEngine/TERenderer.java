@@ -58,7 +58,7 @@ public class TERenderer {
      * @param h height of the window in tiles.
      */
     public void initialize(int w, int h) {
-        initialize(w, h, 0, 0);
+        initialize(w, h, 0, height-3);
     }
 
     /**
