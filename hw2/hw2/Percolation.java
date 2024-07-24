@@ -3,71 +3,83 @@ package hw2;
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 public class Percolation {
-    private boolean[][] P;
-    private WeightedQuickUnionUF F;
-    private int N;
-    private int count;
+    private boolean[][] grid;
+    private WeightedQuickUnionUF uf;
+    private WeightedQuickUnionUF ufNoBottom; // 用于防止 backwash
+    private int n;
+    private int openSitesCount;
+    private int topVirtualSite;
+    private int bottomVirtualSite;
 
-    public Percolation(int N) {
-        if (N <= 0) {
+    public Percolation(int n) {
+        if (n <= 0) {
             throw new IllegalArgumentException("N must be greater than 0");
         }
-        this.N = N;
-        P = new boolean[N][N];
-        for (int i = 0; i < N; i++) {
-            for (int j = 0; j < N; j++) {
-                P[i][j] = false;
-            }
-        }
-        F = new WeightedQuickUnionUF(N * N + 2); // the last two items are used to connect to the 1st row and the last row
-        count = 0;
+        this.n = n;
+        grid = new boolean[n][n];
+        uf = new WeightedQuickUnionUF(n * n + 2); // +2 for virtual top and bottom
+        ufNoBottom = new WeightedQuickUnionUF(n * n + 1); // +1 for virtual top
+        topVirtualSite = n * n;
+        bottomVirtualSite = n * n + 1;
+        openSitesCount = 0;
     }
 
     public void open(int row, int col) {
         if (!isValid(row, col)) {
-            throw new IndexOutOfBoundsException("row or column index out of bounds");
+            throw new IllegalArgumentException("Invalid row or column index");
         }
-        if (!P[row][col]) {
-            P[row][col] = true;
-            count++;
-            if (row == 0) F.union(row * N + col, N * N); // connect to virtual top
-            if (row == N - 1) F.union(row * N + col, N * N + 1); // connect to virtual bottom
-            connectIfOpen(row, col, row - 1, col);
-            connectIfOpen(row, col, row + 1, col);
-            connectIfOpen(row, col, row, col - 1);
-            connectIfOpen(row, col, row, col + 1);
+        if (!grid[row][col]) {
+            grid[row][col] = true;
+            openSitesCount++;
+            int currentSite = row * n + col;
+
+            if (row == 0) {
+                uf.union(currentSite, topVirtualSite);
+                ufNoBottom.union(currentSite, topVirtualSite);
+            }
+            if (row == n - 1) {
+                uf.union(currentSite, bottomVirtualSite);
+            }
+
+            connectIfOpen(currentSite, row, col, row - 1, col);
+            connectIfOpen(currentSite, row, col, row + 1, col);
+            connectIfOpen(currentSite, row, col, row, col - 1);
+            connectIfOpen(currentSite, row, col, row, col + 1);
         }
     }
 
-    private void connectIfOpen(int row, int col, int adjRow, int adjCol) {//benefits: dont need to make judgements in every case
+    private void connectIfOpen(int currentSite, int row, int col, int adjRow, int adjCol) {
         if (isValid(adjRow, adjCol) && isOpen(adjRow, adjCol)) {
-            F.union(row * N + col, adjRow * N + adjCol);
+            int adjacentSite = adjRow * n + adjCol;
+            uf.union(currentSite, adjacentSite);
+            ufNoBottom.union(currentSite, adjacentSite);
         }
     }
 
     private boolean isValid(int row, int col) {
-        return row >= 0 && row < N && col >= 0 && col < N;
+        return row >= 0 && row < n && col >= 0 && col < n;
     }
 
     public boolean isOpen(int row, int col) {
         if (!isValid(row, col)) {
-            throw new IndexOutOfBoundsException("row or column index out of bounds");
+            throw new IllegalArgumentException("Invalid row or column index");
         }
-        return P[row][col];
+        return grid[row][col];
     }
 
     public boolean isFull(int row, int col) {
         if (!isValid(row, col)) {
-            throw new IndexOutOfBoundsException("row or column index out of bounds");
+            throw new IllegalArgumentException("Invalid row or column index");
         }
-        return F.connected(row * N + col, N * N);
+        int currentSite = row * n + col;
+        return ufNoBottom.connected(currentSite, topVirtualSite);
     }
 
     public int numberOfOpenSites() {
-        return count;
+        return openSitesCount;
     }
 
     public boolean percolates() {
-        return F.connected(N * N, N * N + 1);
+        return uf.connected(topVirtualSite, bottomVirtualSite);
     }
 }
