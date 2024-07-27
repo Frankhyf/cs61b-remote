@@ -104,34 +104,33 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      * Bubbles up the node currently at the given index.
      */
     private void swim(int index) {
-        // Throws an exception if index is invalid. DON'T CHANGE THIS LINE.
         validateSinkSwimArg(index);
-
-        /** TODO: Your code here. */
-        if (getNode(index).myPriority > getNode(parentIndex(index)).myPriority || index == 1) {
-            return;
+        while (index > 1 && getNode(index).myPriority < getNode(parentIndex(index)).myPriority) {
+            swap(index, parentIndex(index));
+            index = parentIndex(index);
         }
-        swap(index,parentIndex(index));
-        index = parentIndex(index);
-        swim(index);
     }
+
 
 
     /**
      * Bubbles down the node currently at the given index.
      */
     private void sink(int index) {
-        // Throws an exception if index is invalid. DON'T CHANGE THIS LINE.
         validateSinkSwimArg(index);
-
-        /** TODO: Your code here. */
-        if (min(index,leftIndex(index)) == index && min (index,rightIndex(index)) == index) {
-            return;
+        while (leftIndex(index) <= size) {
+            int smallerChildIndex = leftIndex(index);
+            if (rightIndex(index) <= size && getNode(rightIndex(index)).myPriority < getNode(smallerChildIndex).myPriority) {
+                smallerChildIndex = rightIndex(index);
+            }
+            if (getNode(index).myPriority <= getNode(smallerChildIndex).myPriority) {
+                break;
+            }
+            swap(index, smallerChildIndex);
+            index = smallerChildIndex;
         }
-        swap(index,min(leftIndex(index),rightIndex(index)));
-        index = min(leftIndex(index),rightIndex(index));
-        sink(index);
     }
+
 
     /**
      * Inserts an item with the given priority value. This is enqueue, or offer.
@@ -146,7 +145,8 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
 
         /* TODO: Your code here! */
         contents[size+1] = new Node(item,priority);
-        swim(size+1);
+        size += 1;
+        swim(size);
     }
 
     /**
@@ -171,10 +171,14 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
     @Override
     public T removeMin() {
         /* TODO: Your code here! */
-        T peek = peek();
-        swap(1,size);
-        sink(1);
-        return peek;
+        T minItem = peek();
+        swap(1, size);
+        contents[size] = null; // 避免对象游离
+        size--;
+        if (size > 0) {
+            sink(1);
+        }
+        return minItem;
     }
 
     /**
@@ -196,15 +200,20 @@ public class ArrayHeap<T> implements ExtrinsicPQ<T> {
      */
     @Override
     public void changePriority(T item, double priority) {
-        /* TODO: Your code here! */
-        for (int i = 1;i <= size;i++) {
+        for (int i = 1; i <= size; i++) {
             if (item.equals(contents[i].item())) {
+                double oldPriority = contents[i].myPriority;
                 contents[i].myPriority = priority;
-                sink(i);
-                swim(i);
+                if (priority < oldPriority) {
+                    swim(i);
+                } else {
+                    sink(i);
+                }
+                return;
             }
         }
     }
+
 
     /**
      * Prints out the heap sideways. Provided for you.
